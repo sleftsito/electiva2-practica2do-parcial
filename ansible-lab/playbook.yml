@@ -6,11 +6,11 @@
   tasks:
     - name: Mostrar el nombre del host
       ansible.builtin.debug:
-        msg: "Nombre del servidor: {{ ansible_hostname }}"
+        msg: "Nombre del servidor: {{ ansible_facts.hostname }}"
 
     - name: Mostrar el sistema operativo
       ansible.builtin.debug:
-        msg: "Sistema operativo: {{ ansible_distribution }} {{ ansible_distribution_version }}"
+        msg: "Sistema operativo: {{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }}"
 
     - name: Crear el directorio de trabajo
       ansible.builtin.file:
@@ -22,8 +22,8 @@
       ansible.builtin.copy:
         dest: /tmp/ansible-demo/info.txt
         content: |
-          Servidor: {{ ansible_hostname }}
-          Sistema operativo: {{ ansible_distribution }} {{ ansible_distribution_version }}
+          Servidor: {{ ansible_facts.hostname }}
+          Sistema operativo: {{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }}
         mode: "0644"
 
     - name: Crear subdirectorios
@@ -38,5 +38,5 @@
 
     - name: Mostrar mensaje para Ubuntu
       ansible.builtin.debug:
-        msg: "{{ ansible_hostname }} ejecuta Ubuntu."
-      when: ansible_distribution == "Ubuntu"
+        msg: "{{ ansible_facts.hostname }} ejecuta Ubuntu."
+      when: ansible_facts.distribution == "Ubuntu"
